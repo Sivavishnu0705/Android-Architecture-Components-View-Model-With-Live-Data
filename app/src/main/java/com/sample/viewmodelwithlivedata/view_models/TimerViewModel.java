@@ -23,11 +23,12 @@ public class TimerViewModel extends ViewModel {
         }
     }
 
-    public void startTimer() {
+    private void startTimer() {
         myTimer.schedule(new TimerTask() {
             @Override
             public void run() {
-                countLiveData.postValue(countLiveData.getValue() + 1);//If the value is set from main thread use setValue().Otherwise use postValue() method.
+                Integer count = countLiveData.getValue();
+                countLiveData.postValue(count == null ? 0 : count + 1);//If the value is set from main thread use setValue().Otherwise use postValue() method.
             }
         }, 0, 1000);
     }
